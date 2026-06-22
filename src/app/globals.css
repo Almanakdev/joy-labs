@@ -1,0 +1,127 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --font-sans: "Inter", system-ui, sans-serif;
+  --font-display: "Space Grotesk", "Inter", sans-serif;
+  --font-mono: "JetBrains Mono", ui-monospace, monospace;
+}
+
+@layer base {
+  html {
+    scroll-behavior: smooth;
+  }
+  body {
+    @apply bg-canvas text-ink antialiased;
+    background-image:
+      radial-gradient(60rem 60rem at 110% -10%, rgba(255, 204, 20, 0.10), transparent 55%),
+      radial-gradient(50rem 50rem at -10% 0%, rgba(124, 71, 245, 0.12), transparent 50%);
+    background-attachment: fixed;
+  }
+  ::selection {
+    @apply bg-purple-300/50;
+  }
+}
+
+@layer components {
+  /* Glassmorphism surface */
+  .glass {
+    @apply bg-white/60 backdrop-blur-xl border border-white/70 shadow-glass;
+  }
+  .glass-strong {
+    @apply bg-white/80 backdrop-blur-2xl border border-white/80 shadow-card;
+  }
+
+  /* 3D tilt card base — pair with the TiltCard component */
+  .card-3d {
+    @apply rounded-2xl transition-transform duration-300 will-change-transform;
+    transform-style: preserve-3d;
+  }
+
+  .gradient-text {
+    @apply bg-gradient-to-r from-purple-600 via-purple-500 to-joy-500 bg-clip-text text-transparent;
+  }
+
+  .btn-primary {
+    @apply inline-flex items-center justify-center gap-2 rounded-xl bg-purple-600 px-6 py-3
+      font-semibold text-white shadow-glow transition
+      hover:bg-purple-700 hover:shadow-glow active:scale-[0.98] focus:outline-none
+      focus-visible:ring-2 focus-visible:ring-purple-400;
+  }
+  .btn-secondary {
+    @apply inline-flex items-center justify-center gap-2 rounded-xl bg-joy-300 px-6 py-3
+      font-semibold text-ink shadow-glow-joy transition
+      hover:bg-joy-400 active:scale-[0.98] focus:outline-none
+      focus-visible:ring-2 focus-visible:ring-joy-400;
+  }
+  .btn-ghost {
+    @apply inline-flex items-center justify-center gap-2 rounded-xl border border-purple-200
+      bg-white/70 px-5 py-2.5 font-medium text-purple-700 transition hover:bg-white;
+  }
+
+  .chip {
+    @apply inline-flex items-center gap-1.5 rounded-full px-3 py-1 text-xs font-semibold;
+  }
+
+  .input {
+    @apply w-full rounded-xl border border-purple-100 bg-white/80 px-3 py-2 text-sm
+      outline-none transition placeholder:text-muted/60
+      focus:border-purple-300 focus:ring-2 focus:ring-purple-100;
+  }
+
+  /* Shimmer overlay for progress bars */
+  .shimmer::after {
+    content: "";
+    @apply absolute inset-0 -translate-x-full animate-shimmer;
+    background: linear-gradient(
+      90deg,
+      transparent,
+      rgba(255, 255, 255, 0.55),
+      transparent
+    );
+  }
+}
+
+@layer utilities {
+  .text-balance {
+    text-wrap: balance;
+  }
+  /* Hide scrollbars on horizontal scrollers */
+  .no-scrollbar::-webkit-scrollbar {
+    display: none;
+  }
+  .no-scrollbar {
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+  }
+}
+
+/* Waving-flag background (Joy Labs tile pattern) */
+@keyframes flag-sway {
+  0%,
+  100% {
+    transform: translate3d(0, 0, 0) skewX(0deg) scale(1.06);
+  }
+  50% {
+    transform: translate3d(0, -8px, 0) skewX(-1.4deg) scale(1.06);
+  }
+}
+.animate-flag {
+  animation: flag-sway 16s ease-in-out infinite;
+  transform-origin: center;
+}
+@media (prefers-reduced-motion: reduce) {
+  .animate-flag {
+    animation: none;
+  }
+}
+
+/* Solana wallet adapter modal — light theme overrides */
+.wallet-adapter-button {
+  font-family: var(--font-sans) !important;
+}
+.wallet-adapter-modal-wrapper {
+  background: #ffffff !important;
+  color: #1a1430 !important;
+}

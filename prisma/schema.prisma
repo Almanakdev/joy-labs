@@ -1,0 +1,150 @@
+// Joy Labs — Prisma schema
+// Proof-of-work launchpad data model.
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider  = "postgresql"
+  url       = env("DATABASE_URL")
+  directUrl = env("DIRECT_URL")
+}
+
+enum MilestoneType {
+  WEBSITE
+  WHITEPAPER
+  DEMO
+  GITHUB
+  AUDIT
+  COMMUNITY
+}
+
+enum MilestoneStatus {
+  LOCKED
+  IN_PROGRESS
+  SUBMITTED
+  VERIFIED
+  REJECTED
+}
+
+enum ProjectStage {
+  BUILDING
+  PROVING
+  ELIGIBLE
+  LAUNCHING
+  LAUNCHED
+}
+
+enum VoteValue {
+  UP
+  DOWN
+}
+
+model User {
+  id            String    @id @default(cuid())
+  walletAddress String    @unique
+  handle        String?
+  avatarUrl     String?
+  reputation    Int       @default(0)
+  createdAt     DateTime  @default(now())
+
+  projects      Project[] @relation("ProjectOwner")
+  votes         Vote[]
+
+  @@index([reputation])
+}
+
+model Project {
+  id            String        @id @default(cuid())
+  slug          String        @unique
+  name          String
+  tagline       String?
+  description   String?
+  logoUrl       String?
+  website       String?
+  twitter       String?
+  github        String?
+
+  stage         ProjectStage  @default(BUILDING)
+  workScore     Int           @default(0)
+  // 0-100 anti-rug credibility score
+  credibility   Int           @default(50)
+  // % of total milestones completed
+  progress      Int           @default(0)
+
+  // Launch Arena metrics
+  launchAt      DateTime?
+  votesUp       Int           @default(0)
+  votesDown     Int           @default(0)
+  capitalRaised BigInt        @default(0) // lamports
+  tokenMint     String?       // SPL mint once launched
+
+  ownerId       String
+  owner         User          @relation("ProjectOwner", fields: [ownerId], references: [id])
+
+  milestones    Milestone[]
+  votes         Vote[]
+  reviews       AiReview[]
+  events        ActivityEvent[]
+
+  createdAt     DateTime      @default(now())
+  updatedAt     DateTime      @updatedAt
+
+  @@index([workScore])
+  @@index([stage])
+}
+
+model Milestone {
+  id             String          @id @default(cuid())
+  projectId      String
+  project        Project         @relation(fields: [projectId], references: [id], onDelete: Cascade)
+
+  type           MilestoneType
+  title          String
+  description    String?
+  status         MilestoneStatus @default(LOCKED)
+  points         Int             @default(0)
+  proofUrl       String?
+  verifiedBy     String?         // verifier handle / "AI" / "DAO"
+  completedAt    DateTime?
+  createdAt      DateTime        @default(now())
+
+  @@unique([projectId, type])
+  @@index([status])
+}
+
+model Vote {
+  id        String    @id @default(cuid())
+  projectId String
+  userId    String
+  value     VoteValue
+  createdAt DateTime  @default(now())
+
+  project   Project   @relation(fields: [projectId], references: [id], onDelete: Cascade)
+  user      User      @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@unique([projectId, userId])
+}
+
+model AiReview {
+  id          String   @id @default(cuid())
+  projectId   String
+  project     Project  @relation(fields: [projectId], references: [id], onDelete: Cascade)
+  summary     String
+  score       Int      // 0-100
+  strengths   String[]
+  risks       String[]
+  createdAt   DateTime @default(now())
+}
+
+model ActivityEvent {
+  id        String   @id @default(cuid())
+  projectId String
+  project   Project  @relation(fields: [projectId], references: [id], onDelete: Cascade)
+  kind      String   // e.g. "MILESTONE_VERIFIED", "VOTE", "LAUNCH"
+  message   String
+  createdAt DateTime @default(now())
+
+  @@index([createdAt])
+}
