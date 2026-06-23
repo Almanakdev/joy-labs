@@ -49,7 +49,7 @@ export function Navbar() {
             Start Building
           </Link>
           <a
-            href={PUMPFUN_BASE}
+            href="https://pump.fun/coin/EaQLe62SUJvykJUkX99eH5DheooVyrjMvNSabRiSpump"
             target="_blank"
             rel="noopener noreferrer"
             className="btn-primary !px-4 !py-2 text-sm"
