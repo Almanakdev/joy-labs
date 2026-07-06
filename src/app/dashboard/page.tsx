@@ -2,7 +2,7 @@ import { Suspense } from "react";
 import { DashboardClient } from "@/components/dashboard/DashboardClient";
 
 export const metadata = {
-  title: "Dashboard — Joy Labs",
+  title: "Dashboard — HyperJoy",
   description: "Track your Work Score, milestones and launch eligibility.",
 };
 

@@ -10,7 +10,7 @@ const mono = JetBrains_Mono({ subsets: ["latin"], variable: "--font-mono", displ
 const logo = Poppins({ subsets: ["latin"], weight: ["600", "700"], variable: "--font-logo", display: "swap" });
 
 export const metadata: Metadata = {
-  title: "Joy Labs — Don't Buy The Hype. Buy The Work.",
+  title: "HyperJoy — Don't Buy The Hype. Buy The Work.",
   description:
     "The first Web3 launchpad where builders earn launch rights through real execution instead of paying deployment fees.",
   metadataBase: new URL(process.env.NEXT_PUBLIC_APP_URL ?? "http://localhost:3000"),
@@ -20,7 +20,7 @@ export const metadata: Metadata = {
     apple: "/joylabs-logo.png",
   },
   openGraph: {
-    title: "Joy Labs — Proof-of-Work Launchpad",
+    title: "HyperJoy — Proof-of-Work Launchpad",
     description: "Builders earn launch rights through real execution. Built on Solana.",
     type: "website",
   },

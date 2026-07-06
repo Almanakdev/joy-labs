@@ -3,7 +3,7 @@ import { ArenaCard } from "@/components/arena/ArenaCard";
 import { Rocket } from "lucide-react";
 
 export const metadata = {
-  title: "Launch Arena — Joy Labs",
+  title: "Launch Arena — HyperJoy",
   description: "Projects that earned launch rights. Vote, back, and deploy.",
 };
 

@@ -1,7 +1,7 @@
 import { TerminalClient } from "@/components/terminal/TerminalClient";
 
 export const metadata = {
-  title: "Terminal — Joy Labs",
+  title: "Terminal — HyperJoy",
   description: "Pro trading terminal: live token discovery, quick-buy, and positions.",
 };
 

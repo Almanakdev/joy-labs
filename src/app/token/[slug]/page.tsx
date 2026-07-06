@@ -14,7 +14,7 @@ import { CopyMint } from "@/components/token/CopyMint";
 export function generateMetadata({ params }: { params: { slug: string } }) {
   const m = getTokenMarket(params.slug);
   return {
-    title: m ? `${m.name} ($${m.symbol}) — Joy Labs` : "Token — Joy Labs",
+    title: m ? `${m.name} ($${m.symbol}) — HyperJoy` : "Token — HyperJoy",
     description: m ? `Trade $${m.symbol} on Joy Labs.` : undefined,
   };
 }

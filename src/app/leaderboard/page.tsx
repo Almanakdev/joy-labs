@@ -1,7 +1,7 @@
 import { LeaderboardClient } from "@/components/leaderboard/LeaderboardClient";
 
 export const metadata = {
-  title: "Leaderboard — Joy Labs",
+  title: "Leaderboard — HyperJoy",
   description: "Global ranking of all projects by Work Score.",
 };
 
