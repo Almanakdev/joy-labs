@@ -8,7 +8,7 @@ import { cn } from "@/lib/utils";
 import { Logo } from "@/components/ui/Logo";
 import { SoundToggle } from "@/components/ui/SoundToggle";
 
-const BUY_COIN_URL = "https://pump.fun/coin/9jhPfS3v7AEJTDgcFYPvC3wf1yNPNTPUE1QrVS8dpump";
+const BUY_COIN_URL = "https://pump.fun/";
 
 const LINKS = [
   { href: "/terminal", label: "Terminal" },
