@@ -6,11 +6,12 @@ import { motion } from "framer-motion";
 import { Coins } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { Logo } from "@/components/ui/Logo";
+import { SoundToggle } from "@/components/ui/SoundToggle";
 import { PUMPFUN_BASE } from "@/lib/pumpfun";
 
 const LINKS = [
+  { href: "/terminal", label: "Terminal" },
   { href: "/#leaderboard", label: "Leaderboard" },
-  { href: "/#how", label: "How it works" },
   { href: "/arena", label: "Launch Arena" },
   { href: "/dashboard", label: "Dashboard" },
 ];
@@ -45,6 +46,7 @@ export function Navbar() {
         </nav>
 
         <div className="flex items-center gap-2">
+          <SoundToggle className="btn-ghost !p-2" />
           <Link href="/dashboard" className="hidden btn-secondary !px-4 !py-2 text-sm sm:inline-flex">
             Start Building
           </Link>

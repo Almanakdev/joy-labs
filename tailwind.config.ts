@@ -8,16 +8,17 @@ const config: Config = {
   theme: {
     extend: {
       colors: {
-        // Light theme base
-        canvas: "#f7f5ff",
-        surface: "#ffffff",
-        ink: "#1a1430",
-        muted: "#6b6486",
-        // Purple accents
+        // Dark deep-purple theme base
+        canvas: "#140826",
+        surface: "#1a0f33",
+        ink: "#ece7f7",
+        muted: "#9a8cc4",
+        // Purple accents — 50/100/200 repurposed as dark surfaces/borders,
+        // 300+ stay vivid for accents.
         purple: {
-          50: "#f4f1ff",
-          100: "#e9e3ff",
-          200: "#d4c6ff",
+          50: "#1c1038",
+          100: "#241447",
+          200: "#33205e",
           300: "#b69dff",
           400: "#9a73ff",
           500: "#7c47f5",

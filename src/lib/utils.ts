@@ -25,6 +25,14 @@ export function shortAddress(addr?: string | null, chars = 4): string {
   return `${addr.slice(0, chars)}…${addr.slice(-chars)}`;
 }
 
+/** Deterministic date format (UTC) — safe for SSR (no locale/timezone drift). */
+export function formatDate(iso: string): string {
+  const d = new Date(iso);
+  const mm = String(d.getUTCMonth() + 1).padStart(2, "0");
+  const dd = String(d.getUTCDate()).padStart(2, "0");
+  return `${mm}/${dd}/${d.getUTCFullYear()}`;
+}
+
 /** Relative time, e.g. "3m ago". */
 export function timeAgo(iso: string): string {
   const diff = Date.now() - new Date(iso).getTime();

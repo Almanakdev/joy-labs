@@ -13,11 +13,9 @@
     scroll-behavior: smooth;
   }
   body {
-    @apply bg-canvas text-ink antialiased;
-    background-image:
-      radial-gradient(60rem 60rem at 110% -10%, rgba(255, 204, 20, 0.10), transparent 55%),
-      radial-gradient(50rem 50rem at -10% 0%, rgba(124, 71, 245, 0.12), transparent 50%);
-    background-attachment: fixed;
+    @apply antialiased;
+    background-color: #140826;
+    color: #ece7f7;
   }
   ::selection {
     @apply bg-purple-300/50;
@@ -40,7 +38,7 @@
   }
 
   .gradient-text {
-    @apply bg-gradient-to-r from-purple-600 via-purple-500 to-joy-500 bg-clip-text text-transparent;
+    @apply bg-gradient-to-r from-purple-300 via-[#c9a3ff] to-joy-300 bg-clip-text text-transparent;
   }
 
   .btn-primary {
@@ -51,7 +49,7 @@
   }
   .btn-secondary {
     @apply inline-flex items-center justify-center gap-2 rounded-xl bg-joy-300 px-6 py-3
-      font-semibold text-ink shadow-glow-joy transition
+      font-semibold text-[#1a0f33] shadow-glow-joy transition
       hover:bg-joy-400 active:scale-[0.98] focus:outline-none
       focus-visible:ring-2 focus-visible:ring-joy-400;
   }
@@ -117,11 +115,37 @@
   }
 }
 
-/* Solana wallet adapter modal — light theme overrides */
+/* ---- Dark theme surface overrides ----
+   Remap the light-only utilities used across components to dark equivalents,
+   so the whole site inherits the deep-purple theme without editing every file.
+   (text-white is intentionally left untouched.) */
+@layer utilities {
+  .bg-white { background-color: rgba(29, 17, 56, 0.92) !important; }
+  .bg-white\/40 { background-color: rgba(29, 17, 56, 0.4) !important; }
+  .bg-white\/50 { background-color: rgba(29, 17, 56, 0.5) !important; }
+  .bg-white\/60 { background-color: rgba(29, 17, 56, 0.6) !important; }
+  .bg-white\/70 { background-color: rgba(29, 17, 56, 0.7) !important; }
+  .bg-white\/80 { background-color: rgba(29, 17, 56, 0.85) !important; }
+  .border-white\/70 { border-color: rgba(124, 71, 245, 0.18) !important; }
+  .border-white\/80 { border-color: rgba(124, 71, 245, 0.22) !important; }
+
+  /* core text colors — force light on the dark theme */
+  .text-ink { color: #ece7f7 !important; }
+  .text-muted { color: #b3a7d6 !important; }
+
+  /* accent text needs to lighten on dark */
+  .text-purple-700 { color: #c4a6ff !important; }
+  .text-purple-600 { color: #b48cff !important; }
+
+  /* light chip tints -> translucent dark tints with lighter text */
+  .bg-purple-50\/70 { background-color: rgba(36, 20, 71, 0.7) !important; }
+}
+
+/* Solana wallet adapter modal — dark theme */
 .wallet-adapter-button {
   font-family: var(--font-sans) !important;
 }
 .wallet-adapter-modal-wrapper {
-  background: #ffffff !important;
-  color: #1a1430 !important;
+  background: #1a0f33 !important;
+  color: #ece7f7 !important;
 }

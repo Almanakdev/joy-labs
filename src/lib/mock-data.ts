@@ -17,6 +17,10 @@ const ALL_TYPES: MilestoneType[] = [
   "COMMUNITY",
 ];
 
+// Fixed reference date so milestone "Completed" dates are deterministic
+// (identical on server and client) — avoids SSR hydration mismatches.
+const MILESTONE_ANCHOR = Date.UTC(2026, 5, 15);
+
 function buildMilestones(
   slug: string,
   statuses: Partial<Record<MilestoneType, MilestoneStatus>>
@@ -38,7 +42,7 @@ function buildMilestones(
       verifiedBy: status === "VERIFIED" ? (type === "AUDIT" ? "OtterSec" : "Joy DAO") : undefined,
       completedAt:
         status === "VERIFIED"
-          ? new Date(Date.now() - (i + 1) * 86400000 * 2).toISOString()
+          ? new Date(MILESTONE_ANCHOR - (i + 1) * 86400000 * 2).toISOString()
           : null,
     };
   });

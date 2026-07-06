@@ -53,7 +53,7 @@ export function HowItWorks() {
             transition={{ duration: 0.45, delay: i * 0.1 }}
             className="group relative overflow-hidden rounded-2xl glass-strong p-6"
           >
-            <span className="absolute -right-3 -top-2 font-display text-7xl font-extrabold text-purple-100">
+            <span className="absolute -right-3 -top-2 font-display text-7xl font-extrabold text-purple-300/20">
               {s.n}
             </span>
             <div className={`relative grid h-12 w-12 place-items-center rounded-xl bg-gradient-to-br ${s.tone} text-white shadow-glow`}>

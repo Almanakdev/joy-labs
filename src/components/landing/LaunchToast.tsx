@@ -6,6 +6,7 @@ import { AnimatePresence, motion } from "framer-motion";
 import { Rocket, TrendingUp, TrendingDown, X } from "lucide-react";
 import { MOVERS } from "@/lib/mock-data";
 import { formatCompact } from "@/lib/utils";
+import { playLaunchAmbient } from "@/lib/sound";
 import { ProjectLogo } from "@/components/ui/ProjectLogo";
 import type { LaunchMover } from "@/types";
 
@@ -25,6 +26,7 @@ export function LaunchToast() {
       i++;
       const key = `${m.slug}-${Date.now()}`;
       setToasts((prev) => [...prev, { ...m, key }].slice(-3));
+      playLaunchAmbient();
       // auto-dismiss after 5s
       setTimeout(() => {
         setToasts((prev) => prev.filter((t) => t.key !== key));

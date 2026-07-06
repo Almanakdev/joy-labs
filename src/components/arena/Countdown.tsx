@@ -27,7 +27,7 @@ export function Countdown({ target }: { target: string }) {
           <div suppressHydrationWarning className="font-mono text-xl font-bold tabular-nums">
             {String(u.value).padStart(2, "0")}
           </div>
-          <div className="text-[10px] uppercase tracking-wide text-purple-200">{u.label}</div>
+          <div className="text-[10px] uppercase tracking-wide text-white/70">{u.label}</div>
         </div>
       ))}
     </div>

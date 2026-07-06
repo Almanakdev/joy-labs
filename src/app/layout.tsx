@@ -2,10 +2,7 @@ import type { Metadata } from "next";
 import { Inter, Space_Grotesk, JetBrains_Mono, Poppins } from "next/font/google";
 import "./globals.css";
 import { WalletProvider } from "@/components/wallet/WalletProvider";
-import { Navbar } from "@/components/layout/Navbar";
-import { Footer } from "@/components/layout/Footer";
-import { CursorGlow } from "@/components/effects/CursorGlow";
-import { PatternBackground } from "@/components/effects/PatternBackground";
+import { Chrome } from "@/components/layout/Chrome";
 
 const inter = Inter({ subsets: ["latin"], variable: "--font-sans", display: "swap" });
 const display = Space_Grotesk({ subsets: ["latin"], variable: "--font-display", display: "swap" });
@@ -17,6 +14,11 @@ export const metadata: Metadata = {
   description:
     "The first Web3 launchpad where builders earn launch rights through real execution instead of paying deployment fees.",
   metadataBase: new URL(process.env.NEXT_PUBLIC_APP_URL ?? "http://localhost:3000"),
+  icons: {
+    icon: "/joylabs-logo.png",
+    shortcut: "/joylabs-logo.png",
+    apple: "/joylabs-logo.png",
+  },
   openGraph: {
     title: "Joy Labs — Proof-of-Work Launchpad",
     description: "Builders earn launch rights through real execution. Built on Solana.",
@@ -29,11 +31,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
     <html lang="en" className={`${inter.variable} ${display.variable} ${mono.variable} ${logo.variable}`}>
       <body>
         <WalletProvider>
-          <PatternBackground />
-          <CursorGlow />
-          <Navbar />
-          <main className="min-h-screen">{children}</main>
-          <Footer />
+          <Chrome>{children}</Chrome>
         </WalletProvider>
       </body>
     </html>

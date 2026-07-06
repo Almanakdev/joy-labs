@@ -1,4 +1,5 @@
 import { getProject, MOVERS } from "@/lib/mock-data";
+import { TERMINAL_TOKENS, prettifySlug } from "@/lib/terminal";
 
 // Deterministic mock market data for a token's trading page.
 // Replace with live Helius / DEX / bonding-curve data in production.
@@ -74,14 +75,16 @@ function symbolFor(slug: string, name: string): string {
 export function getTokenMarket(slug: string): TokenMarket | null {
   const project = getProject(slug);
   const mover = MOVERS.find((m) => m.slug === slug);
-  const name = project?.name ?? mover?.name;
-  if (!name) return null;
+  const terminal = TERMINAL_TOKENS.find((t) => t.slug === slug);
+  const name = project?.name ?? mover?.name ?? terminal?.name ?? prettifySlug(slug);
 
   const rnd = mulberry32(hash(slug));
-  const symbol = symbolFor(slug, name);
+  const symbol = terminal?.symbol ?? symbolFor(slug, name);
 
-  const marketCap = mover?.marketCap ?? Math.round(40_000 + rnd() * 120_000);
-  const change24h = mover?.priceChange ?? Math.round((rnd() * 80 - 20) * 10) / 10;
+  const marketCap =
+    mover?.marketCap ?? terminal?.marketCap ?? Math.round(40_000 + rnd() * 120_000);
+  const change24h =
+    mover?.priceChange ?? terminal?.priceChange ?? Math.round((rnd() * 80 - 20) * 10) / 10;
   const price = marketCap / SUPPLY;
 
   // Candles interpolate from the 24h-ago price up to the current price.
@@ -141,3 +144,47 @@ export function getTokenMarket(slug: string): TokenMarket | null {
 
 export const SOL_USD_PRICE = SOL_USD;
 export const TOKEN_SUPPLY = SUPPLY;
+
+export interface TopCoin {
+  slug: string;
+  name: string;
+  symbol: string;
+  mint: string;
+  marketCap: number;
+  volume: number;
+  change: number;
+  holders: number;
+}
+
+/** Deterministic mint address for a slug (stable across renders). */
+export function mintForSlug(slug: string): string {
+  return base58ish(mulberry32(hash(slug + "-mint")), 44);
+}
+
+/** Unified "top coins" board (pump.fun style) from project + terminal tokens. */
+export function getTopCoins(): TopCoin[] {
+  const fromMovers: TopCoin[] = MOVERS.map((m) => ({
+    slug: m.slug,
+    name: m.name,
+    symbol: m.symbol,
+    mint: m.mint,
+    marketCap: m.marketCap,
+    volume: Math.round(m.marketCap * 0.65),
+    change: m.priceChange,
+    holders: Math.round(400 + (hash(m.slug) % 4000)),
+  }));
+  const fromTerminal: TopCoin[] = TERMINAL_TOKENS.map((t) => ({
+    slug: t.slug,
+    name: t.name,
+    symbol: t.symbol,
+    mint: mintForSlug(t.slug),
+    marketCap: t.marketCap,
+    volume: t.volume,
+    change: t.priceChange,
+    holders: t.holders,
+  }));
+
+  const map = new Map<string, TopCoin>();
+  [...fromMovers, ...fromTerminal].forEach((c) => map.set(c.slug, c));
+  return [...map.values()].sort((a, b) => b.marketCap - a.marketCap);
+}

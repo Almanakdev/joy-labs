@@ -6,6 +6,7 @@ import { Settings2, ExternalLink, Loader2, CheckCircle2, FlaskConical } from "lu
 import { SOL_USD_PRICE } from "@/lib/market";
 import { swap } from "@/lib/solana";
 import { pumpFunCoinUrl } from "@/lib/pumpfun";
+import { playBuy, playSell } from "@/lib/sound";
 import { formatCompact } from "@/lib/utils";
 import type { TokenMarket } from "@/lib/market";
 
@@ -40,6 +41,8 @@ export function TradePanel({ market }: { market: TokenMarket }) {
         wallet: "DEMO",
       });
       setDone({ filled: res.filled, sig: res.signature });
+      if (side === "buy") playBuy();
+      else playSell();
       setAmount("");
     } catch (e) {
       setError(e instanceof Error ? e.message : "Trade failed");

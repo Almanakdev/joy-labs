@@ -28,7 +28,7 @@ export default function HomePage() {
           <h2 className="relative font-display text-3xl font-bold sm:text-4xl">
             Ready to earn your launch?
           </h2>
-          <p className="relative mx-auto mt-3 max-w-xl text-purple-100">
+          <p className="relative mx-auto mt-3 max-w-xl text-white/80">
             Stop paying to deploy. Start proving your work. Build your Work Score and
             unlock the Launch Arena.
           </p>

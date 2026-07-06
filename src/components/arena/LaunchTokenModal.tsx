@@ -9,6 +9,7 @@ import { X, Rocket, Loader2, CheckCircle2, FlaskConical } from "lucide-react";
 import type { Project } from "@/types";
 import { MIN_LAUNCH_SCORE } from "@/types";
 import { deployToken } from "@/lib/solana";
+import { playLaunch } from "@/lib/sound";
 import { shortAddress } from "@/lib/utils";
 import { ProjectLogo } from "@/components/ui/ProjectLogo";
 import { WalletButton } from "@/components/wallet/WalletButton";
@@ -85,6 +86,7 @@ export function LaunchTokenModal({
         workScore: project.workScore,
       });
       setPhase("done");
+      playLaunch();
       // brief success beat, then move to the token page
       setTimeout(() => router.push(`/token/${project.slug}`), 900);
     } catch (err) {

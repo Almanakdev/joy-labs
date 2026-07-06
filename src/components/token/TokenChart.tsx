@@ -145,7 +145,7 @@ export function TokenChart({ candles: initial }: { candles: Candle[] }) {
           return (
             <g key={g}>
               <line x1={PAD_L} y1={yy} x2={W - PAD_R} y2={yy} stroke="rgba(124,71,245,0.10)" />
-              <text x={W - PAD_R + 6} y={yy + 3} fontSize={9} fill="#6b6486" className="font-mono">
+              <text x={W - PAD_R + 6} y={yy + 3} fontSize={9} fill="#9a8cc4" className="font-mono">
                 {formatUsdPrice(price)}
               </text>
             </g>
@@ -192,7 +192,7 @@ export function TokenChart({ candles: initial }: { candles: Candle[] }) {
             />
           );
         })}
-        <text x={PAD_L} y={VOL_TOP - 4} fontSize={9} fill="#6b6486" className="uppercase">
+        <text x={PAD_L} y={VOL_TOP - 4} fontSize={9} fill="#9a8cc4" className="uppercase">
           Volume
         </text>
 

@@ -12,6 +12,7 @@ import {
 } from "lucide-react";
 import type { Milestone, MilestoneType } from "@/types";
 import { StatusBadge } from "@/components/ui/Badge";
+import { formatDate } from "@/lib/utils";
 import { motion } from "framer-motion";
 
 const ICONS: Record<MilestoneType, typeof Globe> = {
@@ -63,7 +64,7 @@ export function MilestoneCard({ m, index }: { m: Milestone; index: number }) {
       <div className="mt-4 flex items-center justify-between text-xs">
         <span className="text-muted">
           {m.completedAt
-            ? `Completed ${new Date(m.completedAt).toLocaleDateString()}`
+            ? `Completed ${formatDate(m.completedAt)}`
             : m.status === "LOCKED"
             ? "Not started"
             : "Awaiting verification"}
