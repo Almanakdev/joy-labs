@@ -7,7 +7,8 @@ import { Coins } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { Logo } from "@/components/ui/Logo";
 import { SoundToggle } from "@/components/ui/SoundToggle";
-import { PUMPFUN_BASE } from "@/lib/pumpfun";
+
+const BUY_COIN_URL = "https://pump.fun/coin/9jhPfS3v7AEJTDgcFYPvC3wf1yNPNTPUE1QrVS8dpump";
 
 const LINKS = [
   { href: "/terminal", label: "Terminal" },
@@ -51,7 +52,7 @@ export function Navbar() {
             Start Building
           </Link>
           <a
-            href="https://pump.fun/coin/EaQLe62SUJvykJUkX99eH5DheooVyrjMvNSabRiSpump"
+            href={BUY_COIN_URL}
             target="_blank"
             rel="noopener noreferrer"
             className="btn-primary !px-4 !py-2 text-sm"
